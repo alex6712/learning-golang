@@ -7,7 +7,7 @@ import (
 
 func main() {
 	start := time.Now()
-	for x := 0; x < 1_000_000_000; x++ {
+	for range 1_000_000_000 {
 	}
 	elapsed := time.Since(start).Seconds()
 
