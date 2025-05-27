@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func main() {
-	start := time.Now()
-	for range 1_000_000_000 {
-	}
-	elapsed := time.Since(start).Seconds()
+	i := 1
+	p := &i
 
-	fmt.Printf("Миллиард итераций: %.2f секунд\n", elapsed)
+	*p++
+
+	fmt.Printf("p = %x\n", p)
+	fmt.Printf("i = %d, *p = %d\n", i, *p)
 }
