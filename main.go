@@ -3,16 +3,12 @@ package main
 import "fmt"
 
 func fibonacci() func() int {
-	prev, cur := 0, 0
+	prev, cur := 1, 0
 
 	return func() int {
 		prev, cur = cur, prev+cur
 
-		if cur == 0 {
-			cur = 1
-		}
-
-		return prev
+		return cur
 	}
 }
 
