@@ -1,23 +1,18 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-func Sqrt(x float64) float64 {
-	const Eps = 1e-15
-
-	prev, z := 0.0, 1.0
-
-	for math.Abs(z-prev) > Eps {
-		prev = z
-		z -= (z*z - x) / (2 * z)
-	}
-
-	return z
+type Vertex struct {
+	X, Y int
 }
 
+var (
+	v1 = Vertex{1, 2}
+	v2 = Vertex{X: 1}
+	v3 = Vertex{}
+	p  = &Vertex{1, 2}
+)
+
 func main() {
-	fmt.Println(Sqrt(24))
+	fmt.Println(v1, p, v2, v3)
 }
