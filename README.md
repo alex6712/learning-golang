@@ -58,4 +58,4 @@ API с использованием принципов REST, предостав�
 
 ## Лицензия
 
-Данный проект находится под лицензией [MIT License/X11 License](https://github.com/alex6712/learning-rust/blob/master/LICENSE).
+Данный проект находится под лицензией [MIT License/X11 License](https://github.com/alex6712/learning-golang/blob/master/LICENSE).
