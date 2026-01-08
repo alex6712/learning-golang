@@ -1,21 +1,22 @@
 package main
 
-import "golang.org/x/tour/pic"
+import (
+	"strings"
 
-func Pic(dx, dy int) [][]uint8 {
-	pic := make([][]uint8, dy)
+	"golang.org/x/tour/wc"
+)
 
-	for i := range pic {
-		pic[i] = make([]uint8, dx)
+func WordCount(s string) map[string]int {
+	fields := strings.Fields(s)
 
-		for j := range pic[i] {
-			pic[i][j] = uint8(i ^ j)
-		}
+	rv := make(map[string]int)
+	for _, value := range fields {
+		rv[value]++
 	}
 
-	return pic
+	return rv
 }
 
 func main() {
-	pic.Show(Pic)
+	wc.Test(WordCount)
 }
