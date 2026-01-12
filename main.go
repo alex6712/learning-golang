@@ -1,19 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-type IPAddr [4]byte
+const SqrtEpsilon = 1e-15
 
-func (ip IPAddr) String() string {
-	return fmt.Sprintf("%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3])
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0.0 {
+		return 0.0, ErrNegativeSqrt(x)
+	} else if x == 0.0 {
+		return 0, nil
+	}
+
+	prev, z := 0.0, 1.0
+	for math.Abs(z-prev) > SqrtEpsilon {
+		prev = z
+		z -= (z*z - x) / (2 * z)
+	}
+	return z, nil
 }
 
 func main() {
-	hosts := map[string]IPAddr{
-		"loopback":  {127, 0, 0, 1},
-		"googleDNS": {8, 8, 8, 8},
-	}
-	for name, ip := range hosts {
-		fmt.Printf("%v: %v\n", name, ip)
-	}
+	fmt.Println(Sqrt(2))
+	fmt.Println(Sqrt(-2))
 }
