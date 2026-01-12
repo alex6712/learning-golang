@@ -1,44 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-type Abser interface {
-	Abs() float64
+type IPAddr [4]byte
+
+func (ip IPAddr) String() string {
+	return fmt.Sprintf("%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3])
 }
 
 func main() {
-	var a Abser
-	f := MyFloat(-math.Sqrt2)
-	v := Vertex{3, 4}
-
-	a = f
-	a = &v
-
-	v.Scale(10)
-	fmt.Println(a.Abs())
-}
-
-type MyFloat float64
-
-func (f MyFloat) Abs() float64 {
-	if f < 0 {
-		return float64(-f)
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
 	}
-	return float64(f)
-}
-
-type Vertex struct {
-	X, Y float64
-}
-
-func (v *Vertex) Abs() float64 {
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
-}
-
-func (v *Vertex) Scale(f float64) {
-	v.X *= f
-	v.Y *= f
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
 }
