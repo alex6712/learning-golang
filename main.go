@@ -1,31 +1,24 @@
 package main
 
-import (
-	"image"
-	"image/color"
+import "fmt"
 
-	"golang.org/x/tour/pic"
-)
-
-type Image struct {
-	Width  int
-	Height int
-}
-
-func (i Image) ColorModel() color.Model {
-	return color.RGBAModel
-}
-
-func (i Image) Bounds() image.Rectangle {
-	return image.Rect(0, 0, i.Width, i.Height)
-}
-
-func (i Image) At(x, y int) color.Color {
-	v := uint8(x * y)
-	return color.RGBA{v, v, 255, 255}
+type List[T any] struct {
+	next *List[T]
+	val  T
 }
 
 func main() {
-	m := Image{256, 256}
-	pic.ShowImage(m)
+	head := &List[int]{val: 0}
+	tail := head
+
+	for i := 1; i < 10; i++ {
+		new := &List[int]{val: i}
+
+		tail.next = new
+		tail = new
+	}
+
+	for current := head; current != nil; current = current.next {
+		fmt.Printf("New node found: val=%v\n", current.val)
+	}
 }
