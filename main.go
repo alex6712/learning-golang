@@ -7,7 +7,7 @@ import (
 )
 
 // Walk проходит по бинарному отсортированному
-// дереву t и возвращает результат в канал ch
+// дереву t и пушит значения поэлементно в канал ch
 func Walk(t *tree.Tree, ch chan int) {
 	if t == nil {
 		return
@@ -24,10 +24,13 @@ func Same(t1, t2 *tree.Tree) bool {
 	ch1 := make(chan int, 10)
 	ch2 := make(chan int, 10)
 
+	// запускаем проход по деревьям в отдельных потоках
 	go Walk(t1, ch1)
 	go Walk(t2, ch2)
 
 	for range 10 {
+		// main поток блокируется, пока не получит
+		// по элементу из каждого канала, потом их сравнивает
 		if <-ch1 != <-ch2 {
 			return false
 		}
