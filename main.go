@@ -6,22 +6,20 @@ import (
 	"golang.org/x/tour/tree"
 )
 
+// Walk проходит по бинарному отсортированному
+// дереву t и возвращает результат в канал ch
 func Walk(t *tree.Tree, ch chan int) {
 	if t == nil {
 		return
 	}
 
-	if t.Left != nil {
-		Walk(t.Left, ch)
-	}
-
+	Walk(t.Left, ch)
 	ch <- t.Value
-
-	if t.Right != nil {
-		Walk(t.Right, ch)
-	}
+	Walk(t.Right, ch)
 }
 
+// Same проверяет, совпадают ли два отсортированных
+// бинарных дерева t1 и t2
 func Same(t1, t2 *tree.Tree) bool {
 	ch1 := make(chan int, 10)
 	ch2 := make(chan int, 10)
@@ -34,10 +32,9 @@ func Same(t1, t2 *tree.Tree) bool {
 			return false
 		}
 	}
-
 	return true
 }
 
 func main() {
-	fmt.Println(Same(tree.New(1), tree.New(2)))
+	fmt.Println(Same(tree.New(3), tree.New(3)))
 }
